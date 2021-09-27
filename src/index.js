@@ -4,9 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// Redux configs
+import { Provider } from 'react-redux'
+import movieConfigStore from './App/Redux/store/MovieConfigStore'
+
 ReactDOM.render(
   <React.StrictMode>
+    <Provider store={movieConfigStore}>
     <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
