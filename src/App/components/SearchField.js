@@ -15,7 +15,7 @@ const SearchField = ({ searchTerm, handleSearch }) => {
     return (
         <div className="container">            
             <div className="input-group my-3">
-                <span className="input-group-text" id="basic-addon1">
+                <span className="input-group-text" id="bsFilm-icon">
                     <BsFilm />
                 </span>
                 <input 

@@ -1,115 +1,95 @@
-import React, { useEffect, 
-  useMemo, 
-  useState } from 'react'
-import axios from 'axios'
-import { useSelector } from 'react-redux';
-import { getImages, getTrending } from '../Redux/reducers/MovieConfig';
+import React, { useMemo, useState } from "react";
+// import axios from "axios";
 
 // services
-import { apiSearch, 
-  // configCalling, 
-  // apiCalling 
-} from '../services/service'
+import { apiSearch, getApiData, paginationCalling } from "../services/service";
 
 // bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+// css effects
+import "animate.css/animate.min.css"
+
 
 // import components
 import NavComp from "../components/NavComp";
 import SearchField from "../components/SearchField";
-import MovieCard from '../components/MovieCardComp'
+import MovieCard from "../components/MovieCardComp";
+import ErrorCard from "../components/ErrorCardComp";
+import LoadingSpinner from "../components/LoadingSpinner";
+import NoMoviesAlert from "../components/NoMoviesAlert";
+import PaginationComp from '../components/PaginationComp'
 
 const Home = () => {
   // initialization
-  const [isLoading, setIsLoading] = useState(true)
-  const [isError, setIsError] = useState(false)
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
+  const [isPage, setIsPage] = useState(0);
+  const [isTotalPages, setIsTotalPages] = useState(0);
 
   // MovieCard component
   const [movies, setMovies] = useState([]);
-  const [config_path, setConfig_path] = useState(null);
 
-  // async function configCalling() {
-  //   const response = await axios(
-  //     `https://api.themoviedb.org/3/configuration?api_key=fded687d14e48654e543b7ecfaea42cc`
-  //   );
-  //   // console.log("response.data.images", response.data.images)
-  //   if (response.status === 200) setConfig_path(response.data.images);
-  //   else setIsError(true)
-  // }
-
-  // async function apiCalling() {
-  //   const response = await axios(
-  //     `https://api.themoviedb.org/3/trending/movie/week?api_key=fded687d14e48654e543b7ecfaea42cc`
-  //   );
-  //   console.log("response.data.results", response.data.results)
-  //   if (response.status === 200) setMovies(response.data.results);
-  //   else setIsError(true)
-  //   setIsLoading(false)
-  // }
-
-  const base_path = useSelector( getImages );
-  const trending_movies = useSelector( getTrending );
-  // Load before render
-  useMemo(() => {
-    // configCalling();
-    // apiCalling();
-    // setConfig_path( base_path )
-    // setMovies( trending_movies )
-    // setIsLoading(false)
-  }, []);
-
-
-  // SearchField component
-  const [searchTerm, setSearchTerm] = useState('')
-
-  async function handleSearch( query ){
-    setSearchTerm(query)
-    const response = await apiSearch( query )
-    setMovies(response)
+  async function apiCalling( page = false ) {
+    const response = await getApiData( page )
+    if (response.status === 200){
+      setMovies(response.data.results);
+      setIsPage(response.data.page);
+      setIsTotalPages(response.data.total_pages);
+    }
+    else setIsError(true);
+    setIsLoading(false);
   }
 
-  // useEffect( () => {
-  //   // async function authUser(){
-  //   //   const response = await realmInit( '6150c97070fab7960eba3d3b' )
-  //   //   console.log("user :", response)
-  //   // }
-  //   // authUser()
+  // Load before render
+  useMemo(() => {
+    apiCalling();
+  }, []);
 
-  //   async function genreCalling() {
-  //     const response = await axios(
-  //       `https://api.themoviedb.org/3/genre/movie/list?api_key=fded687d14e48654e543b7ecfaea42cc&language=en-US`
-  //     );
-  //     console.log("response.data.genre", response)
-  //     // if (response.status === 200) setMovies(response.data.results);
-  //   }
-  //   genreCalling()
+  // SearchField component
+  const [searchTerm, setSearchTerm] = useState("");
 
-  //   // to delete | code to avoid console warnings |
-  //   setIsError(false)
-  //   setIsLoading(false)
-  // })
-  
+  async function handleSearch(query) {
+    setSearchTerm(query);
+    const response = await apiSearch(query);
+    if (response.status === 200){
+      setMovies(response.data.results);
+      setIsPage(response.data.page);
+      setIsTotalPages(response.data.total_pages);
+    }
+  }
 
-
-
+  async function handlePages( page ){
+    const response = await paginationCalling(searchTerm, page)
+    if (response.status === 200){
+      setMovies(response.data.results);
+      setIsPage(response.data.page);
+    } 
+  }
 
   return (
     <>
       <NavComp />
       <SearchField searchTerm={searchTerm} handleSearch={handleSearch} />
       {
-        ! isLoading ?
-          ! isError
+        !isLoading
+          ? !isError
             ? movies.length > 0
-              ? (
-                  <div className="container my-5 d-flex flex-wrap justify-content-center">
-                    <MovieCard movies={movies} config_path={config_path} />
-                  </div>
-              )
-              : 'No movies to render'
-          : 'Is Error'
-        : 'Is Loading'
+              ? <PaginationComp isPage={isPage} isTotalPages={isTotalPages} handlePages={handlePages} />
+              : ''
+            : ''
+          : ''
+      }
+      {/* <PaginationComp isPage={isPage} isTotalPages={isTotalPages} handlePages={handlePages} /> */}
+      {!isLoading ? (
+        !isError ? (
+          movies.length > 0 ? (
+            <div className="container my-0 d-flex flex-wrap justify-content-center">
+              <MovieCard movies={movies} />
+            </div>
+          ) : <NoMoviesAlert />
+        ) : <ErrorCard />
+      ) : <LoadingSpinner />
       }
     </>
   );

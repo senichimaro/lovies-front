@@ -1,20 +1,25 @@
 import axios from "axios";
 import * as Realm from "realm-web";
-import { useDispatch } from 'react-redux';
-import { setImages, setTrending } from '../Redux/reducers/MovieConfig'
+// import { useDispatch } from 'react-redux';
+// import { setImages, setTrending } from '../Redux/reducers/MovieConfig'
+
+// Custom Error Data
+const data = {
+  status: 406,
+  error: true,
+  message: "Service-Custom-Backend: 406 Not Acceptable | API call error",
+};
 
 export async function apiSearch(query) {
-  const response = await axios(
-    `https://api.themoviedb.org/3/search/movie?api_key=fded687d14e48654e543b7ecfaea42cc&language=en-US&query=${query}&page=1&include_adult=false`
-  );
-  // console.log("response", response)
-  const data = {
-    status: 406,
-    error: true,
-    message: "Service-Custom-Backend: 406 Not Acceptable | API call error",
-  };
-  if (response.status === 200) return response.data.results;
-  else return data;
+  if ( query ){
+    const response = await axios(
+      process.env.REACT_APP_SEARCH_API + `&query=${query}`
+    );
+    // console.log("apiSearch response", response)
+    if (response.status === 200) return response;
+    else return data;
+  }
+  else return data
 }
 
 export async function realmInit(userID) {
@@ -29,22 +34,32 @@ export async function realmInit(userID) {
   }
 }
 
-// export async function configCalling() {
-//   const response = await axios(
-//     `https://api.themoviedb.org/3/configuration?api_key=fded687d14e48654e543b7ecfaea42cc`
-//   );
-//   console.log("response.data.images", response.data.images)
-//   // if (response.status === 200) setConfig_path(response.data.images);
-//   // else setIsError(true);
-// }
+export async function getApiData( page ) {
+  let url = process.env.REACT_APP_TRENDIG_API
+  if ( page ) url = process.env.REACT_APP_TRENDIG_API + '&page=' + page
+  const response = await axios(
+    url
+  );
+  // console.log("service getApiData > response", response);
+  if (response.status === 200) return response;
+  else return data;
+}
 
-// export async function apiCalling() {
-//   const response = await axios(
-//     `https://api.themoviedb.org/3/trending/movie/week?api_key=fded687d14e48654e543b7ecfaea42cc`
-//   );
-//   console.log("response.data.results", response.data.results);
-//   // if (response.status === 200) setMovies(response.data.results);
-//   // else setIsError(true);
-//   // setIsLoading(false);
-// }
+export async function paginationCalling( query, page ) {
+  let response;
+  if ( query ){
+    // console.log("paginationCalling query", query)
+    response = await axios(
+      `${process.env.REACT_APP_SEARCH_API}&query=${query}&page=${page}`
+    )
+    if (response.status === 200) return response;
+    else return data;
+  }
+  else if ( page ){
+    response = await getApiData( page )
+    if (response.status === 200) return response;
+    else return data;
+  }
+  else return data
+}
 
