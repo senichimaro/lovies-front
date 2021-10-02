@@ -1,5 +1,6 @@
 import axios from "axios";
 import * as Realm from "realm-web";
+import { useQuery } from "react-query";
 // import { useDispatch } from 'react-redux';
 // import { setImages, setTrending } from '../Redux/reducers/MovieConfig'
 
@@ -63,3 +64,26 @@ export async function paginationCalling( query, page ) {
   else return data
 }
 
+export async function findMovie( movieID ){
+  let response = {}
+  try {
+    const parseID = parseInt(movieID)
+    if ( isNaN( parseID ) ){
+      return data;
+    }
+    response = await axios(`${process.env.REACT_APP_FIND_MOVIE_API}${parseID}${process.env.REACT_APP_MOVIE_API_CONFIG}`)
+    // const response = await axios(`${process.env.REACT_APP_FIND_MOVIE_API}${parseID}${process.env.REACT_APP_MOVIE_API_CONFIG}`)
+    // return response
+    // const { isError, data } = useQuery( 'fetchMovie', () => axios(`${process.env.REACT_APP_FIND_MOVIE_API}${parseID}${process.env.REACT_APP_MOVIE_API_CONFIG}`) )
+    // if( isError ) console.log("isError", isError)
+    // else console.log("isError", isError)
+  }
+  catch (e) {    
+    // throw new Error(`Error in service findMovie : ${e.message}`)
+    response = data;
+    response.status = e.response.status
+  }
+  finally {
+    return response
+  }
+}

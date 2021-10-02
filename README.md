@@ -50,3 +50,20 @@ Front-End Librearies used for this project:
 By the absence of the explicit requirement about to _create any kind of Back-End_. It was assumed that the persistence of data in this project wouldn't be via MERN (not Nodejs &Expressjs). 
 
 So, It's used MongoDB services like Realm to work with in a _Platform as a Service_ way or _Serverless_ kind of app, because no specification is defined.
+
+
+# Final steps
+1. set movie page
+   - card button link to movie page by id
+   - get id from params
+   - get movie by id
+   - display data or show error
+2. set auth functionality : favorite
+   - star button save movie
+3. set auth pages
+   - profile
+   - favorites
+   - see-later
+   - settings
+4. set auth functionality : see-later
+   - needs a button

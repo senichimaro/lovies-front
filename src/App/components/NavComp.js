@@ -1,7 +1,12 @@
 import * as React from "react";
 import { Link } from 'react-router-dom'
+import { useAuth0 } from "@auth0/auth0-react";
+
+// import Authentication buttons component
+import AuthButton from "../auth0/AuthButton";
 
 export default function NavBar() {
+    const { isAuthenticated } = useAuth0()
   return (
     <nav className="navbar navbar-light bg-light">
         <div className="container-fluid">
@@ -9,7 +14,7 @@ export default function NavBar() {
             <Link className="navbar-brand" to="/">løvies</Link>            
 
             {
-                true
+                isAuthenticated
                 ? (
                     <>
 
@@ -76,7 +81,7 @@ export default function NavBar() {
                     
                     </>
                 )
-                : ''
+                : <AuthButton />
             }
             
             

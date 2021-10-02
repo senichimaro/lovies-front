@@ -6,11 +6,12 @@ import { useDispatch } from 'react-redux';
 import { setImages, setGenre } from './App/Redux/reducers/MovieConfig'
 
 // authentication component
-import AuthProvider from './App/auth/AuthProvider';
-import ProtectedRoute from './App/auth/ProtectedRoutes';
+import AuthProvider from './App/auth0/AuthProvider';
+import ProtectedRoute from './App/auth0/ProtectedRoutes';
 
 // import pages
 import Home from './App/pages/Home'
+import Movie from './App/pages/Movie';
 
 const App = () => {
 
@@ -46,6 +47,8 @@ const App = () => {
         <Route exact path='/' component={Home} />
 
         <ProtectedRoute exact path='/profile' component={Home} />
+
+        <Route path='/movie/:id' component={Movie} />
 
         </AuthProvider>
       </Switch>

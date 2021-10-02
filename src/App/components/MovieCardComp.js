@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAuth0 } from "@auth0/auth0-react";
 import { useSelector } from "react-redux";
 import { getImages, getGenre } from "../Redux/reducers/MovieConfig";
 
@@ -9,6 +10,9 @@ import { BsFillStarFill } from "react-icons/bs";
 import { IconContext } from "react-icons";
 
 const MovieCard = ({ movies }) => {
+  // authentication boolean
+  const { isAuthenticated } = useAuth0()
+
   // images path
   const config_path = useSelector(getImages);
   // genres data
@@ -26,7 +30,8 @@ const MovieCard = ({ movies }) => {
 
   return movies
     ? movies.map((movie) => {
-        return (
+    // console.log(movie)
+    return (
           <div
             className={`p-1 d-flex align-items-stretch animate__animated animate__fadeIn`}
             key={movie.id}
@@ -45,18 +50,24 @@ const MovieCard = ({ movies }) => {
                 alt={movie.overview.substring(0, 50)}
               />
 
-              <button
-                type="button"
-                onClick={_handleClick}
-                className="btn badge fs-5 text-warning position-absolute top-0 end-0"
-                name={movie.id}
-              >
-                <IconContext.Provider
-                  value={{ className: movie.id }}
-                >
-                    <BsFillStarFill />
-                </IconContext.Provider>
-              </button>
+              {
+                isAuthenticated
+                ? (
+                  <button
+                    type="button"
+                    onClick={_handleClick}
+                    className="btn badge fs-5 text-warning position-absolute top-0 end-0"
+                    name={movie.id}
+                  >
+                    <IconContext.Provider
+                      value={{ className: movie.id }}
+                    >
+                        <BsFillStarFill />
+                    </IconContext.Provider>
+                  </button>
+                )
+                : null
+              }
 
               <div className="card-body position-relative">
                 <div className="d-flex">
@@ -75,7 +86,7 @@ const MovieCard = ({ movies }) => {
                     : movie.overview}
                 </p>
                 <div className="btns-wrap align-self-end">
-                  <Link to="#" className="btn btn-primary">
+                  <Link to={`movie/${movie.id}`} className="btn btn-primary">
                     Go somewhere
                   </Link>
                 </div>
@@ -84,7 +95,7 @@ const MovieCard = ({ movies }) => {
           </div>
         );
       })
-    : "";
+    : null;
 };
 
 export default MovieCard;
