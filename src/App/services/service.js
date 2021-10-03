@@ -35,26 +35,40 @@ export async function realmInit(userID) {
 }
 
 // save user in mongodb
-export async function postUser( userObj ) {
-  const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
-  const credentials = Realm.Credentials.anonymous();
-  try {
-    const conn = await app.logIn(credentials);
-    const user = await conn.functions.postUser(userObj);
-    return user;
-  } catch (e) {
-    throw new Error(`Failed to Login : ${e.message}`);
-  }
-}
+// export async function postUser( userObj ) {
+//   const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
+//   const credentials = Realm.Credentials.anonymous();
+//   try {
+//     const conn = await app.logIn(credentials);
+//     const user = await conn.functions.postUser(userObj);
+//     return user;
+//   } catch (e) {
+//     throw new Error(`Failed to Login : ${e.message}`);
+//   }
+// }
 
 // find user in mongodb database
-export async function findUserByEmail( email ) {
+// export async function findUserByEmail( email ) {
+//   const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
+//   const credentials = Realm.Credentials.anonymous();
+//   try {
+//     const conn = await app.logIn(credentials);
+//     const user = await conn.functions.findUser(email);
+//     return user;
+//   } catch (e) {
+//     throw new Error(`ERROR in service findUserByEmail : ${e.message}`);
+//   }
+// }
+
+// find/save user in mongodb database
+export async function findkOrSaveUser( userObj ) {
   const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
   const credentials = Realm.Credentials.anonymous();
   try {
     const conn = await app.logIn(credentials);
-    const user = await conn.functions.findUser(email);
-    return user;
+    let user = await conn.functions.findUser(userObj.email);
+    if ( ! user ) user = await conn.functions.postUser(userObj);
+    // return user;
   } catch (e) {
     throw new Error(`ERROR in service findUserByEmail : ${e.message}`);
   }

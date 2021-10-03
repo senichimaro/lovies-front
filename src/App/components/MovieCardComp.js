@@ -4,11 +4,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { useSelector } from "react-redux";
 import { getImages, getGenre } from "../Redux/reducers/MovieConfig";
 
-import error_image from "../assets/images/error_image.jpg";
+// import components
+import FavMovieButton from "./FavCardButton";
 
-import { BsFillStarFill } from "react-icons/bs";
-import { BsStar } from "react-icons/bs";
-import { IconContext } from "react-icons";
+import error_image from "../assets/images/error_image.jpg";
 
 const MovieCard = ({ movies }) => {
   // authentication boolean
@@ -19,53 +18,8 @@ const MovieCard = ({ movies }) => {
   // genres data
   const genre_data = useSelector(getGenre);
 
-  const _handleClick = (event) => {
-    event.preventDefault();
-    const { name } = event.target;
-    let parent_wrapper = '';
-    let icon_location = "";
-    let icon_wrapper = "";
-
-    if (parseInt(name)) {
-      console.log("name", name);
-      icon_location = `.star-${name}`;
-      console.log("icon_location", icon_location)
-      icon_wrapper = document.querySelector(icon_location)
-      // icon_wrapper.appendChild( <BsStar /> )
-      console.log(icon_wrapper)
-    } 
-    else if ( parseInt(event.target.parentNode.name) ){
-      console.log("(button)", event.target.parentNode.name);
-      parent_wrapper = event.target.parentNode.name
-      icon_location = `.star-${parent_wrapper}`;
-      console.log("icon_location", icon_location)
-      icon_wrapper = document.querySelector(icon_location)
-      // icon_wrapper.appendChild( <BsStar /> )
-      console.log(icon_wrapper)
-    }
-    else if (isNaN(parseInt(event.target.parentNode.classList[0]))) {
-        console.log("(parent.parent)", event.target.parentNode.parentNode.name);
-        parent_wrapper = event.target.parentNode.parentNode.name
-        icon_location = `.star-${parent_wrapper}`;
-        console.log("icon_location", icon_location)
-        icon_wrapper = document.querySelector(icon_location)
-        // icon_wrapper.appendChild( <BsStar /> )
-        console.log(icon_wrapper)
-      }
-      else {
-        console.log("isNaN(className)", event.target.parentNode.classList[0]);
-        parent_wrapper = event.target.parentNode.classList[0]
-        icon_location = `.star-${parent_wrapper}`;
-        console.log("icon_location", icon_location)
-        icon_wrapper = document.querySelector(icon_location)
-        // icon_wrapper.appendChild( <BsStar /> )
-        console.log(icon_wrapper)
-      }
-  };
-
   return movies
     ? movies.map((movie) => {
-        // console.log(movie)
         return (
           <div
             className={`p-1 d-flex align-items-stretch animate__animated animate__fadeIn`}
@@ -85,23 +39,7 @@ const MovieCard = ({ movies }) => {
                 alt={movie.overview.substring(0, 50)}
               />
 
-              {isAuthenticated ? (
-                <button
-                  type="button"
-                  onClick={_handleClick}
-                  className="btn badge fs-5 text-warning position-absolute top-0 end-0"
-                  name={movie.id}
-                >
-                  <IconContext.Provider
-                    value={{ className: `star-${movie.id}` }}
-                  >
-                    {
-                      false ? <BsFillStarFill /> : <BsStar />
-                    }
-                    {/* <BsFillStarFill /> */}
-                  </IconContext.Provider>
-                </button>
-              ) : null}
+              {isAuthenticated ? <FavMovieButton movieID={movie.id} /> : null}
 
               <div className="card-body position-relative">
                 <div className="d-flex">
@@ -124,7 +62,7 @@ const MovieCard = ({ movies }) => {
                     to={`movie/${movie.id}`}
                     className="btn btn-outline-danger"
                   >
-                    Go somewhere
+                    See More
                   </Link>
                 </div>
               </div>

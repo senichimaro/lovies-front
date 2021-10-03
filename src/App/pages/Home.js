@@ -1,13 +1,16 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentUser, getCurrentUser } from '../Redux/reducers/MovieConfig'
 
 // services
 import {
   apiSearch,
   getApiData,
   paginationCalling,
-  postUser,
-  findUserByEmail
+  // postUser,
+  // findUserByEmail,
+  findkOrSaveUser
 } from "../services/service";
 
 // bootstrap
@@ -27,6 +30,7 @@ import PaginationComp from "../components/PaginationComp";
 
 const Home = () => {
   // initialization
+  const dispatch = useDispatch()  
   const { isAuthenticated, user } = useAuth0();
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -35,6 +39,9 @@ const Home = () => {
 
   // MovieCard component
   const [movies, setMovies] = useState([]);
+
+  // current user
+  const currentUser = useSelector(getCurrentUser);
 
   // intial movies : trending
   async function apiCalling(page = false) {
@@ -73,21 +80,23 @@ const Home = () => {
     apiCalling();
   }, []);
 
-  async function insertUser(userBundle) {
-    const response = await postUser(userBundle);
-    console.log("response", response);
-  }
+  // user database executions
+  // async function insertUser(userBundle) {
+  //   const response = await postUser(userBundle);
+  //   console.log("insertUser response", response);
+  // }
 
-  async function checkUser(userBundle) {
-    const response = await findUserByEmail(userBundle);
-    console.log("checkUser response", response);
-  }
+  // async function checkUser(userBundle) {
+  //   const response = await findUserByEmail(userBundle);
+  //   console.log("checkUser response", response);
+  // }
 
   useEffect(() => {
     if (isAuthenticated) {
       // console.log("isAuthenticated", isAuthenticated);
       // insertUser(user);
-      checkUser(user.email);
+      findkOrSaveUser(user);
+      // dispatch( setCurrentUser(user.email) )
     }
   }, [isAuthenticated, user]);
 

@@ -7,13 +7,10 @@ import { getImages, getGenre } from "../Redux/reducers/MovieConfig";
 
 // components
 import NavComp from "../components/NavComp";
+import FavMovieButton from "../components/FavMovieButton";
 
 // error image
 import error_image_bg from "../assets/images/error_image_bg.jpg";
-
-// icons
-import { BsFillStarFill } from "react-icons/bs";
-import { BsFillPlayFill } from "react-icons/bs";
 
 const Movie = () => {
   const { id } = useParams();
@@ -25,37 +22,6 @@ const Movie = () => {
   const config_path = useSelector(getImages);
   // genres data
   const genre_data = useSelector(getGenre);
-
-  const _handleClick = (event) => {
-    event.preventDefault();
-    const { name, value } = event.target;
-    
-    // get movie id
-    let movie_id = 0;
-    const parentEl = event.target.parentNode;
-    const idName = parentEl.parentNode.getAttribute('data-name')
-    // clicked target
-    if ( parseInt(name) ) movie_id = name
-    else if ( parseInt(idName) ) movie_id = idName
-    else movie_id = parentEl.getAttribute('data-name')
-    
-    // console.log("movie_id",movie_id)
-    
-    // value action-name
-    let list_name = 0
-    const tarValue = event.target.getAttribute('data-value')
-    const idValue = parentEl.parentNode.getAttribute('data-value')
-    // clicked target
-    if ( parseInt(value) ) list_name = value
-    else if ( parseInt(idValue) ) list_name = idValue
-    else if ( parseInt(tarValue) ) list_name = tarValue
-    else list_name = parentEl.getAttribute('data-value')
-
-    // console.log("list_name",list_name)
-
-    // if ( list_name > 1 )
-    // else 
-  };
 
   useEffect(() => {
     async function getMovie(movieID) {
@@ -92,37 +58,7 @@ const Movie = () => {
             <p className="lead">{movie.overview}</p>
             <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
 
-              {isAuthenticated ? (
-                <div className="d-flex alig-items-center flex-wrap">
-
-                  <button
-                    onClick={_handleClick}
-                    className="btn btn-primary m-1"
-                    type="button"
-                    name={movie.id}
-                    value="1"
-                  >
-                    <span className="d-flex align-items-center" data-name={movie.id} data-value="1">
-                      <BsFillStarFill />
-                      <span className="mx-1">Add to Favorites</span>
-                    </span>
-                  </button>
-
-                  <button
-                    onClick={_handleClick}
-                    className="btn btn-secondary m-1"
-                    type="button"
-                    name={movie.id}
-                    value="2"
-                  >
-                    <span className="d-flex align-items-center" data-name={movie.id} data-value="2">
-                      <BsFillPlayFill />
-                      <span className="mx-1">See Later</span>
-                    </span>
-                  </button>
-                  
-                </div>
-              ) : null}
+              {isAuthenticated ? <FavMovieButton /> : null}
             </div>
           </div>
           <div className="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">

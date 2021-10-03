@@ -8,7 +8,7 @@ const MovieConfigSlice = createSlice({
         genre: [],
         trending: [],
         movie: {},
-        // currentUser
+        currentUser: ''
     },
     reducers: {        
         setIsLoading: (state, action) => {
@@ -25,6 +25,9 @@ const MovieConfigSlice = createSlice({
         },
         setMovie: (state, action) => {
             state.movie = action.payload
+        },
+        setCurrentUser: (state, action) => {
+            state.currentUser = action.payload
         }
     }
 })
@@ -35,6 +38,7 @@ export const {
     setGenre,
     setTrending,
     setMovie,
+    setCurrentUser,
 } = MovieConfigSlice.actions
 
 export const getIsLoading = state => state.config.isLoading
@@ -42,5 +46,6 @@ export const getImages = state => state.config.images
 export const getGenre = state => state.config.genre
 export const getTrending = state => state.config.trending
 export const getMovie = state => state.config.movie
+export const getCurrentUser = state => state.config.currentUser
 
 export default MovieConfigSlice.reducer
