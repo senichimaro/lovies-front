@@ -9,13 +9,18 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { Provider } from 'react-redux'
 import movieConfigStore from './App/Redux/store/MovieConfigStore'
 
+// import css
+import './App/assets/css/globals.css'
+// import 'bootswatch/dist/united/bootstrap.min.css'
+import 'bootswatch/dist/vapor/bootstrap.min.css'
+
 const queryClient = new QueryClient()
 
 ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
     <Provider store={movieConfigStore}>
-    <App />
+      <App />
     </Provider>
     </QueryClientProvider>
   </React.StrictMode>,

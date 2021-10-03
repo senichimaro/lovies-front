@@ -8,16 +8,16 @@ Upon this basics, more complex functionalities are added extending the business 
 ### Basics
 1. Components
   * [x] Search : search field and like a
-  * [ ] Loader : UX element
+  * [x] Loader : UX element
   * [x] Rendering : table for showing the result.
   * [x] Responsiveness : working on desktop as well as mobile
-  * [ ] Posters and trailers
+  * [x] Posters and trailers
 2. Functionality
   * [x] API : TMDb `https://www.themoviedb.org/documentation/api`
 
 ### Extended
 1. Components   
-   * [ ] favourites star icon
+   * [x] favourites star icon
 2. Functionality
    * [ ] user accounts (login & authentication)
    * [ ] setting movies as your favourites
@@ -54,16 +54,28 @@ So, It's used MongoDB services like Realm to work with in a _Platform as a Servi
 
 # Final steps
 1. set movie page
-   - card button link to movie page by id
-   - get id from params
-   - get movie by id
-   - display data or show error
+   - [x] card button link to movie page by id
+   - [x] get id from params
+   - [x] get movie by id
+   - [ ] display data or show error
 2. set auth functionality : favorite
-   - star button save movie
+   - [x] star button save movie
 3. set auth pages
-   - profile
-   - favorites
-   - see-later
-   - settings
+   - [ ] profile
+   - [ ] favorites
+   - [ ] see-later
+   - [ ] settings
 4. set auth functionality : see-later
-   - needs a button
+   - [x] needs a button
+
+
+## Realm
+1. [ ] getters & setters
+   - [ ] functionality to work with lists
+     - [ ] get list in /favorites
+     - [ ] get list in /see-later
+   - [ ] functionality to work with users
+     - [ ] get list in /profile
+     - [ ] get list in /settings
+     - [ ] check if a user exist (find) or create (post) in one function (findOrCreate)
+     - 

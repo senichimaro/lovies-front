@@ -8,10 +8,10 @@ import AuthButton from "../auth0/AuthButton";
 export default function NavBar() {
     const { isAuthenticated } = useAuth0()
   return (
-    <nav className="navbar navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
 
-            <Link className="navbar-brand" to="/">løvies</Link>            
+            <Link className="navbar-brand lovies_font fs-3" to="/">løvies</Link>            
 
             {
                 isAuthenticated

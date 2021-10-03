@@ -7,9 +7,10 @@ const MovieConfigSlice = createSlice({
         images: {},
         genre: [],
         trending: [],
-        movie: {}
+        movie: {},
+        // currentUser
     },
-    reducers: {
+    reducers: {        
         setIsLoading: (state, action) => {
             state.isLoading = action.payload
         },

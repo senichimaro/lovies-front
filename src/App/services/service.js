@@ -1,8 +1,5 @@
 import axios from "axios";
 import * as Realm from "realm-web";
-import { useQuery } from "react-query";
-// import { useDispatch } from 'react-redux';
-// import { setImages, setTrending } from '../Redux/reducers/MovieConfig'
 
 // Custom Error Data
 const data = {
@@ -11,6 +8,7 @@ const data = {
   message: "Service-Custom-Backend: 406 Not Acceptable | API call error",
 };
 
+// movie search in API database
 export async function apiSearch(query) {
   if ( query ){
     const response = await axios(
@@ -23,6 +21,7 @@ export async function apiSearch(query) {
   else return data
 }
 
+// mockup function
 export async function realmInit(userID) {
   const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
   const credentials = Realm.Credentials.anonymous();
@@ -35,6 +34,46 @@ export async function realmInit(userID) {
   }
 }
 
+// save user in mongodb
+export async function postUser( userObj ) {
+  const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
+  const credentials = Realm.Credentials.anonymous();
+  try {
+    const conn = await app.logIn(credentials);
+    const user = await conn.functions.postUser(userObj);
+    return user;
+  } catch (e) {
+    throw new Error(`Failed to Login : ${e.message}`);
+  }
+}
+
+// find user in mongodb database
+export async function findUserByEmail( email ) {
+  const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
+  const credentials = Realm.Credentials.anonymous();
+  try {
+    const conn = await app.logIn(credentials);
+    const user = await conn.functions.findUser(email);
+    return user;
+  } catch (e) {
+    throw new Error(`ERROR in service findUserByEmail : ${e.message}`);
+  }
+}
+
+// save movie in mongodb
+export async function saveMovie( userObj ) {
+  const app = new Realm.App({ id: process.env.REACT_APP_REALM_ID });
+  const credentials = Realm.Credentials.anonymous();
+  try {
+    const conn = await app.logIn(credentials);
+    const user = await conn.functions.postUser(userObj);
+    return user;
+  } catch (e) {
+    throw new Error(`Failed to Login : ${e.message}`);
+  }
+}
+
+// retrieve initial pages
 export async function getApiData( page ) {
   let url = process.env.REACT_APP_TRENDIG_API
   if ( page ) url = process.env.REACT_APP_TRENDIG_API + '&page=' + page
@@ -46,6 +85,7 @@ export async function getApiData( page ) {
   else return data;
 }
 
+// pagination function to retrieve selected pages from a specific search term
 export async function paginationCalling( query, page ) {
   let response;
   if ( query ){
@@ -64,22 +104,15 @@ export async function paginationCalling( query, page ) {
   else return data
 }
 
+// search movie functionality
 export async function findMovie( movieID ){
   let response = {}
   try {
     const parseID = parseInt(movieID)
-    if ( isNaN( parseID ) ){
-      return data;
-    }
+    if ( isNaN( parseID ) ) return data
     response = await axios(`${process.env.REACT_APP_FIND_MOVIE_API}${parseID}${process.env.REACT_APP_MOVIE_API_CONFIG}`)
-    // const response = await axios(`${process.env.REACT_APP_FIND_MOVIE_API}${parseID}${process.env.REACT_APP_MOVIE_API_CONFIG}`)
-    // return response
-    // const { isError, data } = useQuery( 'fetchMovie', () => axios(`${process.env.REACT_APP_FIND_MOVIE_API}${parseID}${process.env.REACT_APP_MOVIE_API_CONFIG}`) )
-    // if( isError ) console.log("isError", isError)
-    // else console.log("isError", isError)
   }
-  catch (e) {    
-    // throw new Error(`Error in service findMovie : ${e.message}`)
+  catch (e) {
     response = data;
     response.status = e.response.status
   }
