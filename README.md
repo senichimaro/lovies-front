@@ -1,5 +1,5 @@
 # løvies : Leo Movies App
-This is app is built from down to up from the point of view about basic requirements and complexity gain with features addition. [see it live](https://senichimaro.github.io/lovies/#/)
+This is app is built from down to up from the point of view about basic requirements and complexity gain with features addition. [see it live: løvies - The WebApp for movies lovers by movie lovers](https://senichimaro.github.io/lovies/#/)
 
 In this way, basic implementations are Front-End UI components to human-readability and cool engage styling.
 
