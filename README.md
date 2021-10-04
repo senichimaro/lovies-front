@@ -1,5 +1,5 @@
 # løvies : Leo Movies App
-This is app is built from down to up from the point of view about basic requirements and complexity gain with features addition.
+This is app is built from down to up from the point of view about basic requirements and complexity gain with features addition. [see it live](https://senichimaro.github.io/lovies/#/)
 
 In this way, basic implementations are Front-End UI components to human-readability and cool engage styling.
 
@@ -41,11 +41,7 @@ Front-End Librearies used for this project:
 * Auth0
 * dotenv
 
-## Back-End : PaaS
-~~By the absence of the explicit requirement about to _create any kind of Back-End_. It was assumed that the persistence of data in this project wouldn't be via MERN (not Nodejs &Expressjs).~~ 
-
-~~So, It's used MongoDB services like Realm to work with in a _Platform as a Service_ way or _Serverless_ kind of app, because no specification is defined.~~
-
+## Back-End 
 There were no specific requirements about Back-End or PaaS, so MERN was provided to improve efficiency in data handling.
 
 

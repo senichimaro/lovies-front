@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { BrowserRouter as Router, Switch, Route, HashRouter } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import axios from "axios";
 import { useDispatch } from 'react-redux';
