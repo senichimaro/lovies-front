@@ -89,7 +89,7 @@ export async function addMovieCollection(email, movie_id, coll) {
   try {
     const response = await axios({
       method: 'POST',
-      url: `${process.env.REACT_APP_BACKEND_BASEURL}/add-favorites`,
+      url: `https://cors-anywhere.herokuapp.com/${process.env.REACT_APP_BACKEND_BASEURL}/add-favorites`,
       data: {email:email, movie_id:movie_id, coll:coll}
     })
     return response
