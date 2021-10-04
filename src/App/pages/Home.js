@@ -1,14 +1,10 @@
-import React, { useMemo, useState, useEffect } from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+import React, { useMemo, useState } from "react";
 
 // services
 import {
   apiSearch,
   getApiData,
   paginationCalling,
-  // postUser,
-  // findUserByEmail,
-  // findkOrSaveUser
 } from "../services/service";
 
 // bootstrap
@@ -18,7 +14,6 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "animate.css/animate.min.css";
 
 // import components
-import NavComp from "../components/NavComp";
 import SearchField from "../components/SearchField";
 import MovieCard from "../components/MovieCardComp";
 import ErrorCard from "../components/ErrorCardComp";
@@ -28,7 +23,6 @@ import PaginationComp from "../components/PaginationComp";
 
 const Home = () => {
   // initialization
-  const { isAuthenticated, user } = useAuth0();
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [isPage, setIsPage] = useState(0);
@@ -74,29 +68,8 @@ const Home = () => {
     apiCalling();
   }, []);
 
-  // user database executions
-  // async function insertUser(userBundle) {
-  //   const response = await postUser(userBundle);
-  //   console.log("insertUser response", response);
-  // }
-
-  // async function checkUser(userBundle) {
-  //   const response = await findUserByEmail(userBundle);
-  //   console.log("checkUser response", response);
-  // }
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      // console.log("isAuthenticated", isAuthenticated);
-      // insertUser(user);
-      // findkOrSaveUser(user);
-      // dispatch( setCurrentUser(user.email) )
-    }
-  }, [isAuthenticated, user]);
-
   return (
     <>
-      <NavComp />
       <SearchField searchTerm={searchTerm} handleSearch={handleSearch} />
       {!isLoading ? (
         !isError ? (
@@ -115,7 +88,6 @@ const Home = () => {
       ) : (
         ""
       )}
-      {/* <PaginationComp isPage={isPage} isTotalPages={isTotalPages} handlePages={handlePages} /> */}
       {!isLoading ? (
         !isError ? (
           movies.length > 0 ? (

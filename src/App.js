@@ -12,6 +12,8 @@ import ProtectedRoute from './App/auth0/ProtectedRoutes';
 // import pages
 import Home from './App/pages/Home'
 import Movie from './App/pages/Movie';
+import Favorites from './App/pages/Favorites';
+import NavBar from './App/components/NavComp';
 
 const App = () => {
 
@@ -43,10 +45,12 @@ const App = () => {
       
       <Switch>
         <AuthProvider>
+          <NavBar />
 
         <Route exact path='/' component={Home} />
 
-        <ProtectedRoute exact path='/profile' component={Home} />
+        <ProtectedRoute exact path='/favorites' component={Favorites} />
+        <ProtectedRoute exact path='/later' component={Favorites} />
 
         <Route path='/movie/:id' component={Movie} />
 

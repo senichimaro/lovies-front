@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import { getImages, getGenre } from "../Redux/reducers/MovieConfig";
 
 // components
-import NavComp from "../components/NavComp";
 import FavMovieButton from "../components/FavMovieButton";
 
 // error image
@@ -26,8 +25,6 @@ const Movie = () => {
   useEffect(() => {
     async function getMovie(movieID) {
       const response = await findMovie(movieID);
-      console.log("getMovie response.data", response.data);
-      // return response.data
       setMovie(response.data);
     }
     getMovie(id);
@@ -35,7 +32,7 @@ const Movie = () => {
 
   return movie ? (
     <>
-      <NavComp />
+      {/* <NavComp /> */}
       <div className="container my-5">
         <div className="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
           <div className="col-lg-7 p-3 p-lg-5 pt-lg-3">
