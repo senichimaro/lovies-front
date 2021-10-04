@@ -19,19 +19,17 @@ Upon this basics, more complex functionalities are added extending the business 
 1. Components   
    * [x] favourites star icon
 2. Functionality
-   * [ ] user accounts (login & authentication)
-   * [ ] setting movies as your favourites
-   * [ ] A list like the "watch later" functionality on YouTube.
+   * [x] user accounts (login & authentication)
+   * [x] setting movies as your favourites
+   * [x] A list like the "watch later" ('later') functionality on YouTube.
 
 Final Scheme
 ~~~
 ./
 |_home
 |_login/signup
-  |_/profile
   |_/favorites
-  |_/seeLater
-  |_/settings
+  |_/later
 
 ~~~
 
@@ -40,16 +38,15 @@ Front-End Librearies used for this project:
 * React Router
 * Redux
 * Axios
-* React Query
-* React Forms
-* GraphQL
 * Auth0
 * dotenv
 
 ## Back-End : PaaS
-By the absence of the explicit requirement about to _create any kind of Back-End_. It was assumed that the persistence of data in this project wouldn't be via MERN (not Nodejs &Expressjs). 
+~~By the absence of the explicit requirement about to _create any kind of Back-End_. It was assumed that the persistence of data in this project wouldn't be via MERN (not Nodejs &Expressjs).~~ 
 
-So, It's used MongoDB services like Realm to work with in a _Platform as a Service_ way or _Serverless_ kind of app, because no specification is defined.
+~~So, It's used MongoDB services like Realm to work with in a _Platform as a Service_ way or _Serverless_ kind of app, because no specification is defined.~~
+
+There were no specific requirements about Back-End or PaaS, so MERN was provided to improve efficiency in data handling.
 
 
 # Final steps
@@ -61,21 +58,19 @@ So, It's used MongoDB services like Realm to work with in a _Platform as a Servi
 2. set auth functionality : favorite
    - [x] star button save movie
 3. set auth pages
-   - [ ] profile
    - [ ] favorites
-   - [ ] see-later
-   - [ ] settings
+   - [ ] see-later ('later')
 4. set auth functionality : see-later
    - [x] needs a button
 
 
-## Realm
-1. [ ] getters & setters
-   - [ ] functionality to work with lists
-     - [ ] get list in /favorites
-     - [ ] get list in /see-later
-   - [ ] functionality to work with users
-     - [ ] get list in /profile
-     - [ ] get list in /settings
-     - [ ] check if a user exist (find) or create (post) in one function (findOrCreate)
-     - 
+## ~~Realm~~ Nodejs/Express -> MongoDB/Mongoose
+1. [x] getters & setters
+   - [x] functionality to work with lists
+     - [x] get list in /favorites
+     - [x] get list in /see-later
+   - [x] functionality to work with users
+     - [x] check if a user exist (find) or create (post) in one function (findOrCreate)
+
+## The Name: Why løvies?
+To be creative 'løvies' is a mix of 'lion' in danish, 'love' for love in plaine inglish, and movies: It's like 'The WebApp for movies lovers by movie lovers from Leo Vegas'.

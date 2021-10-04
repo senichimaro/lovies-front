@@ -20,7 +20,8 @@ const AuthProviderWrapper = ({ children }) => {
         <Auth0Provider
             domain={domain}
             clientId={clientId}
-            redirectUri={window.location.origin}
+            // redirectUri={window.location.origin}
+            redirectUri={`https://senichimaro.github.io/lovies/#/`}
             onRedirectCallback={onRedirectCallback}
         >
             { children }
