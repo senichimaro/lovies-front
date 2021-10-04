@@ -41,7 +41,7 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <HashRouter>
+    <Router>
       
       <Switch>
         <AuthProvider>
@@ -56,7 +56,7 @@ const App = () => {
 
         </AuthProvider>
       </Switch>
-    </HashRouter>
+    </Router>
   );
 }
 
