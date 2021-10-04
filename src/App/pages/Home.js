@@ -1,7 +1,5 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentUser, getCurrentUser } from '../Redux/reducers/MovieConfig'
 
 // services
 import {
@@ -10,7 +8,7 @@ import {
   paginationCalling,
   // postUser,
   // findUserByEmail,
-  findkOrSaveUser
+  // findkOrSaveUser
 } from "../services/service";
 
 // bootstrap
@@ -30,7 +28,6 @@ import PaginationComp from "../components/PaginationComp";
 
 const Home = () => {
   // initialization
-  const dispatch = useDispatch()  
   const { isAuthenticated, user } = useAuth0();
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -39,9 +36,6 @@ const Home = () => {
 
   // MovieCard component
   const [movies, setMovies] = useState([]);
-
-  // current user
-  const currentUser = useSelector(getCurrentUser);
 
   // intial movies : trending
   async function apiCalling(page = false) {
@@ -95,7 +89,7 @@ const Home = () => {
     if (isAuthenticated) {
       // console.log("isAuthenticated", isAuthenticated);
       // insertUser(user);
-      findkOrSaveUser(user);
+      // findkOrSaveUser(user);
       // dispatch( setCurrentUser(user.email) )
     }
   }, [isAuthenticated, user]);

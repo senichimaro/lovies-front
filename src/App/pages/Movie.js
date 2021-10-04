@@ -58,7 +58,7 @@ const Movie = () => {
             <p className="lead">{movie.overview}</p>
             <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
 
-              {isAuthenticated ? <FavMovieButton /> : null}
+              {isAuthenticated ? <FavMovieButton movieID={movie.id} /> : null}
             </div>
           </div>
           <div className="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">

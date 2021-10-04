@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+import { useAuth0 } from "@auth0/auth0-react";
+import { addMovieCollection } from "../services/service";
 
 // icons
 import { BsFillStarFill } from "react-icons/bs";
@@ -10,6 +11,7 @@ import { BsPlay } from "react-icons/bs";
 const FavMovieButton = ({ movieID }) => {
   const [isFav, setIsFav] = useState(false);
   const [isLater, setIsLater] = useState(false);
+  const { user } = useAuth0()
 
   const _handleClick = (event) => {
     event.preventDefault();
@@ -24,8 +26,6 @@ const FavMovieButton = ({ movieID }) => {
     else if ( parseInt(idName) ) movie_id = idName
     else movie_id = parentEl.getAttribute('data-name')
     
-    // console.log("movie_id",movie_id)
-    
     // value action-name
     let list_name = 0
     const tarValue = event.target.getAttribute('data-value')
@@ -35,11 +35,20 @@ const FavMovieButton = ({ movieID }) => {
     else if ( parseInt(idValue) ) list_name = idValue
     else if ( parseInt(tarValue) ) list_name = tarValue
     else list_name = parentEl.getAttribute('data-value')
+    
+    
+    // console.log("movie_id",movie_id)
+    // console.log("list_name",list_name)
+    
+    if ( list_name > 1 ){
+      setIsLater( ! isLater )
+      addMovieCollection(user.email, movie_id, false)
+    }
+    else {
+      setIsFav( ! isFav )
+      addMovieCollection(user.email, movie_id, true)
+    }
 
-    console.log("list_name",list_name)
-
-    if ( list_name > 1 ) setIsLater( ! isLater )
-    else setIsFav( ! isFav )
   };
 
   return (

@@ -8,7 +8,7 @@ const MovieConfigSlice = createSlice({
         genre: [],
         trending: [],
         movie: {},
-        currentUser: ''
+        currentUser: null
     },
     reducers: {        
         setIsLoading: (state, action) => {

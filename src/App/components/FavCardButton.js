@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+import { addMovieCollection } from "../services/service";
 
 // icons
 import { BsFillStarFill } from "react-icons/bs";
@@ -11,36 +12,22 @@ const FavCardButton = ({ movieID }) => {
     const [isSelected , setIsSelected] = useState();
     const { user } = useAuth0()
     
-  const _handleClick = (event) => {
-    event.preventDefault();
-    // const { name } = event.target;
-    // let parent_wrapper = "";
-    let parent_wrapper = event.target.name;
-    // let icon_location = "";
-    // let icon_wrapper = "";
-    setIsSelected( ! isSelected )
+    const _handleClick = (event) => {
+      event.preventDefault();
+      let parent_wrapper = event.target.name;
+      setIsSelected( ! isSelected )
+      
+      if ( parseInt(parent_wrapper) ){}
+      else if ( parseInt(event.target.parentNode.name) ) parent_wrapper = event.target.parentNode.name;
+      else if ( isNaN(parseInt(event.target.parentNode.classList[0])) ) parent_wrapper = event.target.parentNode.parentNode.name;
+      else parent_wrapper = event.target.parentNode.classList[0]
+      
+      
+      // console.log("FavCardButton user",user.email)
+      // console.log("parent_wrapper",parent_wrapper)
 
-    // if (parseInt(name)) {
-    if (parseInt(parent_wrapper)) {
-      console.log("movie_id", parent_wrapper)
-      // icon_location = `.star-${name}`;
-      // icon_wrapper = document.querySelector(icon_location);
-    } else if (parseInt(event.target.parentNode.name)) {
-      parent_wrapper = event.target.parentNode.name;
-      console.log("movie_id", parent_wrapper)
-      // icon_location = `.star-${parent_wrapper}`;
-      // icon_wrapper = document.querySelector(icon_location);
-    } else if (isNaN(parseInt(event.target.parentNode.classList[0]))) {
-      parent_wrapper = event.target.parentNode.parentNode.name;
-      console.log("movie_id", parent_wrapper)
-      // icon_location = `.star-${parent_wrapper}`;
-      // icon_wrapper = document.querySelector(icon_location);
-    } else {
-      parent_wrapper = event.target.parentNode.classList[0];
-      console.log("movie_id", parent_wrapper)
-      // icon_location = `.star-${parent_wrapper}`;
-      // icon_wrapper = document.querySelector(icon_location);
-    }
+      addMovieCollection( user.email, parent_wrapper, true )
+
   };
 
   return (
