@@ -74,7 +74,12 @@ export async function findMovieCollection( email ) {
     const response = await axios({
       method: 'POST',
       url: `${process.env.REACT_APP_BACKEND_BASEURL}/find-favorites`,
+      withCredentials: false,
       data: {email:email}
+      // data: {email:email},
+      // headers: {
+      //   Authorization: 'Bearer'
+      // }
     })
 
     return response
@@ -90,6 +95,7 @@ export async function addMovieCollection(email, movie_id, coll) {
     const response = await axios({
       method: 'POST',
       url: `${process.env.REACT_APP_BACKEND_BASEURL}/add-favorites`,
+      withCredentials: false,
       data: {email:email, movie_id:movie_id, coll:coll}
     })
     return response
