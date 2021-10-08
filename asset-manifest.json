@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/lovies/static/css/main.588250de.chunk.css",
+    "main.js": "/lovies/static/js/main.b9170839.chunk.js",
+    "main.js.map": "/lovies/static/js/main.b9170839.chunk.js.map",
+    "runtime-main.js": "/lovies/static/js/runtime-main.c0e20aa8.js",
+    "runtime-main.js.map": "/lovies/static/js/runtime-main.c0e20aa8.js.map",
+    "static/css/2.24a43492.chunk.css": "/lovies/static/css/2.24a43492.chunk.css",
+    "static/js/2.edd0b6eb.chunk.js": "/lovies/static/js/2.edd0b6eb.chunk.js",
+    "static/js/2.edd0b6eb.chunk.js.map": "/lovies/static/js/2.edd0b6eb.chunk.js.map",
+    "static/js/3.f0bd524a.chunk.js": "/lovies/static/js/3.f0bd524a.chunk.js",
+    "static/js/3.f0bd524a.chunk.js.map": "/lovies/static/js/3.f0bd524a.chunk.js.map",
+    "index.html": "/lovies/index.html",
+    "static/css/2.24a43492.chunk.css.map": "/lovies/static/css/2.24a43492.chunk.css.map",
+    "static/css/main.588250de.chunk.css.map": "/lovies/static/css/main.588250de.chunk.css.map",
+    "static/js/2.edd0b6eb.chunk.js.LICENSE.txt": "/lovies/static/js/2.edd0b6eb.chunk.js.LICENSE.txt",
+    "static/media/error_image_bg.7927cccd.jpg": "/lovies/static/media/error_image_bg.7927cccd.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c0e20aa8.js",
+    "static/css/2.24a43492.chunk.css",
+    "static/js/2.edd0b6eb.chunk.js",
+    "static/css/main.588250de.chunk.css",
+    "static/js/main.b9170839.chunk.js"
+  ]
+}
