@@ -75,11 +75,11 @@ export async function findMovieCollection( email ) {
       method: 'POST',
       url: `${process.env.REACT_APP_BACKEND_BASEURL}/find-favorites`,
       withCredentials: false,
-      data: {email:email}
-      // data: {email:email},
-      // headers: {
-      //   Authorization: 'Bearer'
-      // }
+      // data: {email:email}
+      data: {email:email},
+      headers: {
+        "Access-Control-Allow-Origin" : "*"
+      }
     })
 
     return response
@@ -96,7 +96,10 @@ export async function addMovieCollection(email, movie_id, coll) {
       method: 'POST',
       url: `${process.env.REACT_APP_BACKEND_BASEURL}/add-favorites`,
       withCredentials: false,
-      data: {email:email, movie_id:movie_id, coll:coll}
+      data: {email:email, movie_id:movie_id, coll:coll},
+      headers: {
+        "Access-Control-Allow-Origin" : "*"
+      }
     })
     return response
   } catch (e) {
